@@ -1,0 +1,75 @@
+{
+	"info": {
+		"_postman_id": "d57af30e-472b-4db8-a84e-513c86dd3eb4",
+		"name": "Uforia-Eval-AnimalDbankApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19143014",
+		"_collection_link": "https://orange-astronaut-108832.postman.co/workspace/Usama-Space~a001403f-b48c-434e-872d-15240fa99907/collection/19143014-d57af30e-472b-4db8-a84e-513c86dd3eb4?action=share&source=collection_link&creator=19143014"
+	},
+	"item": [
+		{
+			"name": "Get all Animal Detail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/animal/?page=450",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"animal",
+						""
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "450"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bulk Create Animals",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": [\n        {\n        \"id\": \"5420\",\n        \"name\": \"Stinkbug\",\n        \"born_at\": \"1993-08-29T09:26:09.260Z\",\n        \"friends\": [\n            \"Raccoon\"\n            ]\n        },\n        {\n        \"id\"\n        \"name\": \"Stinkbug\",\n        \"born_at\": \"1993-08-29T09:26:09.260Z\",\n        \"friends\": [\n            \"Raccoon\"\n            ]\n        },\n        {\n        \"name\": \"Stinkbug\",\n        \"born_at\": \"1993-08-29T09:26:09.260Z\",\n        \"friends\": [\n            \"Raccoon\"\n            ]\n        }\n        ,\n        {\n        \"name\": \"Stinkbug\",\n        \"born_at\": \"1993-08-29T09:26:09.260Z\",\n        \"friends\": [\n            \"Raccoon\"\n            ]\n        },\n        {\n        \"name\": \"Stinkbug\",\n        \"born_at\": \"1993-08-29T09:26:09.260Z\",\n        \"friends\": [\n            \"Raccoon\"\n            ]\n        },\n        {\n        \"name\": \"Stinkbug\",\n        \"born_at\": \"1993-08-29T09:26:09.260Z\",\n        \"friends\": [\n            \"Raccoon\"\n            ]\n        },\n        {\n        \"name\": \"Stinkbug\",\n        \"born_at\": \"1993-08-29T09:26:09.260Z\",\n        \"friends\": [\n            \"Raccoon\"\n            ]\n        },\n        {\n        \"name\": \"Stinkbug\",\n        \"born_at\": \"1993-08-29T09:26:09.260Z\",\n        \"friends\": [\n            \"Raccoon\"\n            ]\n        },\n        {\n        \"name\": \"Stinkbug\",\n        \"born_at\": \"1993-08-29T09:26:09.260Z\",\n        \"friends\": [\n            \"Raccoon\"\n            ]\n        },\n        {\n        \"name\": \"Stinkbug\",\n        \"born_at\": \"2025-08-29T09:26:09.260Z\",\n        \"friends\": [\n            \"Raccoon\"\n            ]\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/animal/create/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"animal",
+						"create",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
