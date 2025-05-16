@@ -21,7 +21,7 @@ class AnimalDetailsView(APIView):
                 }, safe=False,  status=status.HTTP_200_OK)
             else:
                 return JsonResponse({
-                    "status":"error",
+                    "status":"failed",
                     "message": "Something went wrong",
                     "data": None,
                 },safe=False, status=status.HTTP_400_BAD_REQUEST)
@@ -51,15 +51,15 @@ class CreateAnimalView(APIView):
                 status=status.HTTP_200_OK
                 )
             return JsonResponse({
-                "status": "success",
-                "message": None,
-                'data': "data_list",
-            }, safe=False, status=status.HTTP_200_OK)
+                "status": "failed",
+                "message": "Invalid payload format",
+                'data': None,
+            }, safe=False, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             print(str(e))
             return JsonResponse({
                 "status": "failed",
                 "message": "Something went wrong...",
                 "data": None
-            }, safe=False, status=status.HTTP_400_BAD_REQUEST)
+            }, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
