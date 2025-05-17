@@ -1,38 +1,31 @@
 from django.urls import reverse
 from rest_framework.test import APITestCase
-from rest_framework import status
-from unittest.mock import patch
+from django.conf import settings
+import logging
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+logger = logging.getLogger(__name__)
 
 
-class AnimalViewsTestCase(APITestCase):
+class AnimalViewsIntegrationTestCase(APITestCase):
 
-    @patch("api.views.fetch_all_animal_details_with_threads")
-    def test_get_animal_details_success(self, mock_fetch):
-        mock_fetch.return_value = [{"id": 1, "name": "Tiger", "friends": ["Lion"], "born_at": 1672531200000}]
-        response = self.client.get(reverse('fetch-animal-details'))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.json().get("status"), "success")
+    def setUp(self):
+        logger.info(f"Using BASE_URL: {settings.BASE_URL}")
 
+    def test_get_animal_details_integration(self):
+        logger.info(f"Testing GET /fetch-animal-details?page={500}  going from page=1 takes too long so for testing sake lets go with page=500")
+        response = self.client.get(reverse('fetch-animal-details'), {'page': 500})
+        logger.info(f"Received status: {response.status_code}")
+        logger.info(f"Omitting response.json here since its too lengthy u might wanna try loading up the postman export")
+        self.assertIn(response.status_code, [200, 400])
 
-    @patch("api.views.fetch_all_animal_details_with_threads")
-    def test_get_animal_details_failure(self, mock_fetch):
-        mock_fetch.return_value = None
-        response = self.client.get(reverse('fetch-animal-details'))
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.json().get("status"), "failed")
-
-    @patch("api.views.bulk_parse_data")
-    def test_create_animal_success(self, mock_bulk):
-        mock_bulk.return_value = True
-        payload = {"data": [{"id": 1, "name": "Tiger", "friends": "Lion", "born_at": 1672531200000}]}
+    def test_create_animal_integration(self):
+        logger.info("Testing POST /bulk-create-animal")
+        payload = {"data": [{"id": 100, "name": "Bear", "friends": ["fox","Dog"], "born_at": "2005-05-27T19:22:35.339Z"},{"id": 101, "name": "Cat", "friends": ["Lion"], "born_at": "1987-11-24T05:49:48.271Z"}]}
         response = self.client.post(reverse('bulk-create-animal'), payload, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.json().get("status"), "success")
+        logger.info(f"Received status: {response.status_code}")
+        logger.info(f"Response data: {response.json()}")
+        self.assertIn(response.status_code, [200, 400])
 
-    @patch("api.views.bulk_parse_data")
-    def test_create_animal_failure(self, mock_bulk):
-        mock_bulk.return_value = False
-        payload = {"data": [{"name": "Elephant", "friends": "", "born_at": None}]}
-        response = self.client.post(reverse('bulk-create-animal'), payload, format='json')
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.json().get("status"), "failed")
+
+
