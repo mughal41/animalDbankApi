@@ -1,5 +1,28 @@
 # animalDbankApi
+AnimalDbank is a Django REST API that interacts with a Dockerized backend service to fetch, normalize, and post animal data. It utilizes multi-threading to enhance performance while retrieving large datasets and includes retry mechanisms for improved network resilience.
 
+## Project Description
+This project serves as a middleware layer between a frontend (or client) and a containerized backend API. It provides endpoints to:
+
+- Fetch animal details - using multi-threading to fetch animal-id and using it to fetch animal details from an internal service
+- Normalize data - (e.g., converting timestamps, splitting comma separated friend names into list)
+- Bulk submit - cleaned data to a secondary POST API endpoint
+
+## 🔄 Workflow Overview
+
+Data Retrieval:
+   The API fetches paginated animal data from a Dockerized internal service.
+   Multi-threading is used to fetch individual animal details concurrently.
+   Gracefully retries in case of unexpected hangup or connection break.
+
+Data Normalization:
+   `friends` comma separated string is converted into a list.
+   `born_at` timestamp is parsed and converted into UTC datetime.
+
+Data Submission:
+   Transformed data got from data retrieval endpoint is sent in batches (100 per request) to the targeted docker endpoint.
+
+---
 ## Installation
 
 ### Step 1: Clone the repository
