@@ -8,7 +8,7 @@ This project serves as a middleware layer between a frontend (or client) and a c
 - Normalize data - (e.g., converting timestamps, splitting comma separated friend names into list)
 - Bulk submit - cleaned data to a secondary POST API endpoint
 
-## 🔄 Workflow Overview
+## Workflow Overview
 
 Data Retrieval:
    The API fetches paginated animal data from a Dockerized internal service.
@@ -49,7 +49,8 @@ pip install -r requirements.txt
 python manage.py runserver
 
 ### Step 5: Download targetd docker image
-https://storage.googleapis.com/lp-dev-hiring/images/lp-programming-challenge-1-1625758668.tar.gz
+wget https://storage.googleapis.com/lp-dev-hiring/images/lp-programming-challenge-1-1625758668.tar.gz
+
 
 ### Step 6: Load the container
 docker load -i lp-programming-challenge-1-1625610904.tar.gz
